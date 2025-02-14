@@ -33,7 +33,7 @@ function compute_skyrmion_number_shape(sim)
     Q = compute_skyrmion_number(Array(sim.spin), sim.mesh, shape)
     return Q
 end
-
+"""
 for (i,f) in enumerate([two_skx1, two_skx2]), (j, D) in enumerate([2e-3, -2e-3])
     args = (
         task = "Relax",
@@ -86,9 +86,10 @@ for i in 1:4
     fig = plot_m(m[:, 75:125, 75:125, :]; figsize=(400, 400), arrows=(20, 20))
     save(@sprintf("m1_%d.png", i), fig)
 end
-
+"""
 
 """
+In some cases, we need to relax the system again with LLG driver to make sure the observed textures are really energy minimized 
 for i in 4:4
     vtkname = @sprintf("m1_%d.vts", i)
     args = (
@@ -99,16 +100,37 @@ for i in 4:4
         mesh = mesh,
         Ms = 1.1e6,
         A = 1.3e-11,
-        Ku = 3.2e5, 
+        Ku = 4e5, 
         D = 2e-3,
         dmi_type = "interfacial",
         demag = true,
         m0 = read_vtk(vtkname),
-        stopping_dmdt = 0.1,
-        H_s = [(0, 0, i*20mT) for i=0:20],
+        stopping_dmdt = 0.01,
         save_vtk = true,
         saver_item=SaverItem("Q", "<unitless>", compute_skyrmion_number_shape)
     );
     sim = sim_with(args);
 end
 """
+
+
+for i in 1:4
+    vtkname = @sprintf("m1_%d.vts", i)
+    args = (
+        task = "Relax",
+        name = @sprintf("R_%d", i),
+        mesh = mesh,
+        Ms = 1.1e6,
+        A = 1.3e-11,
+        Ku = 4e5, 
+        D = 2e-3,
+        dmi_type = "interfacial",
+        demag = true,
+        m0 = read_vtk(vtkname),
+        stopping_dmdt = 0.01,
+        H_s = [(0, 0, i*20mT) for i=0:20],
+        save_vtk = true,
+        saver_item=SaverItem("Q", "<unitless>", compute_skyrmion_number_shape)
+    );
+    sim = sim_with(args);
+end
