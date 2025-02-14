@@ -23,7 +23,7 @@ end
 function plot(Kus, Rs, Qs)
 
     fig = Figure(size=(500, 360), fontsize = 16)
-    ax1 = Axis(fig[1, 1], xlabel=L"Ku (MJ/m$^3$)", ylabel="R (nm)")
+    ax1 = Axis(fig[1, 1], xlabel=L"Ku (10^5 J/m$^3$)", ylabel="R (nm)")
     contourf!(ax1, Kus, Rs, Qs, levels=[-0.5, 0.5, 1.5], colormap=[(:blue,0.5), (:red, 0.5)])
     #heatmap!(ax1, Kus, Rs, Qs, colormap=[(:blue,0.5), (:red, 0.5)])
     tightlimits!(ax1)
