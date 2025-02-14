@@ -34,7 +34,7 @@ for (i,f) in enumerate([skx1, skx2])
         shape = geo,
         Ms = 1.1e6,
         A = 1.3e-11,
-        Ku = 3e5, 
+        Ku = 2.5e5, 
         D = 2e-3,
         demag = false,
         dmi_type = "interfacial",

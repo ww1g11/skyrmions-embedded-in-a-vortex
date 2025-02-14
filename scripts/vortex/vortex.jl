@@ -50,7 +50,7 @@ for (i,f) in enumerate([up_cw, up_acw, down_cw, down_acw])
         mesh = mesh,
         Ms = 1.1e6,
         A = 1.3e-11,
-        Ku = 4e5, 
+        #Ku = 4e5, 
         shape = geo,
         demag = true,
         m0 = f,
@@ -85,7 +85,7 @@ for (i,f) in enumerate([up_cw, up_acw, down_cw, down_acw])
         dmi_type = "interfacial",
         demag = true,
         m0 = read_vtk(vtkname),
-        stopping_dmdt = 0.001
+        stopping_dmdt = 0.01
     );
     sim = sim_with(args);
 
@@ -101,7 +101,7 @@ for (i,f) in enumerate([up_cw, up_acw, down_cw, down_acw])
     save(@sprintf("dmi_vortex_%d.png", i), fig)
 end
 
-
+"""
 for i = 1:4
     vtkname = @sprintf("vortex_%d.vts", i)
     args = (
@@ -123,3 +123,4 @@ for i = 1:4
     );
     sim = sim_with(args);
 end
+"""
